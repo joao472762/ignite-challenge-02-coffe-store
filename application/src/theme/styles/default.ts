@@ -20,5 +20,10 @@ export const theme = {
         'yellow-600': '#DBAC2C'
 
 
+    },
+    fonts:{
+        Roboto: `Roboto , sans-serif ,serif`,
+        Ballo: `'Baloo 2', cursive;`
+
     }
 }

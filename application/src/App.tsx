@@ -1,25 +1,13 @@
-import { useEffect, useState } from 'react'
-import  ReactSvg  from '../src/assets/expressoTradicional.svg'
-import { COFFES_API } from './services/api'
-interface Coffes {
-  type: [],
-  name: string,
-  description: string,
-  image: string
-}
+import { ThemeProvider } from "styled-components";
+import { Router } from "./routes/router";
+import { GlobalStyles } from "./theme/global";
+import { theme } from "./theme/styles/default";
+
 export function App(){
-  const [coffes, setCoffes] = useState<Coffes[]>([])
-  useEffect(()=>{
-    fetch(COFFES_API)
-    .then(response => response.json())
-    .then(data => { setCoffes(()=> data)})
-  },[])
-
-  console.log(coffes)
-
   return(
-    <div>
-      i'm achieve in app component
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router/>
+      <GlobalStyles/>
+    </ThemeProvider>
   )
 }
