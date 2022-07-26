@@ -17,7 +17,7 @@ export const theme = {
 
         'yellow-100': '#F1E9C9',
         'yellow-300': '#DBAC2C',
-        'yellow-600': '#DBAC2C'
+        'yellow-600': '#C47F17'
 
 
     },
