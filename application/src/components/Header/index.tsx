@@ -7,7 +7,9 @@ import { ShoppingCart} from 'phosphor-react'
 export function Header(){
     return(
         <HeaderContainer>
-            <img src={CoffeShopLogoSvg}/>
+            <NavLink to={'/'}>
+                <img src={CoffeShopLogoSvg}/>
+            </NavLink>
             <section>
                 <Location>
                     <img src={MapPinSvg}/>

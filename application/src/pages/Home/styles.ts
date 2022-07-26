@@ -83,10 +83,13 @@ export const Information = styled.div<IconBackground>`
     }
 
 `
-export const CardsContainer = styled.main`
+export const CardsContainer = styled.section`
+        margin-top: 3.375rem;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        flex-wrap: wrap;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fit,256px);
         column-gap: 2rem;
         row-gap: 2.5rem;
-        flex-wrap: wrap;
+      
 `

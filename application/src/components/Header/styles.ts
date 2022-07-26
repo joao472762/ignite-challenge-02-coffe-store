@@ -8,23 +8,25 @@ export const HeaderContainer = styled.header`
     section{
         column-gap: .75rem;
         display: flex;
-    }
 
-    a{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.375rem;
-        height: 2.375rem;
-        border-radius: 6px;
-        background-color: ${props => props.theme.colors["yellow-100"]};
-
-        svg{
-            font-size: 1.375rem;
-            color: ${props => props.theme.colors["yellow-600"]};
+        a{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.375rem;
+            height: 2.375rem;
+            border-radius: 6px;
+            background-color: ${props => props.theme.colors["yellow-100"]};
+    
+            svg{
+                font-size: 1.375rem;
+                color: ${props => props.theme.colors["yellow-600"]};
+            }
+    
         }
 
     }
+
 `
 export const Location = styled.div`
     display:  flex;

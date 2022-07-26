@@ -8,6 +8,7 @@ import { COFFES_API } from "../../services/api";
 
 
 export interface coffeProps  {
+    id: string,
     type: []
     name: string,
     image: string,
@@ -23,8 +24,6 @@ export function Home(){
         then(respose => setCoffes(()=> respose.data))
     },[])
     
-
-
     return(
         <HomeContainer>
             <aside>
@@ -58,7 +57,7 @@ export function Home(){
                 <h2>Nossos cafés</h2>
                 <CardsContainer>
                     {coffes?.map(coffe => {
-                        return(<Card props={coffe}/>)
+                        return(<Card  key={coffe.id} props={coffe}/>)
                     })}
                 </CardsContainer>
                 

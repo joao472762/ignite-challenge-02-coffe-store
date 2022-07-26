@@ -28,17 +28,20 @@ export const CardContainer = styled.div`
     }
   
 `
+export const Categorys= styled.div`
+    display: flex;
+    column-gap: .25rem;
+    margin-top: 1rem;
 
-export const Category = styled.span`
-        display: inline-block;
-        
-        margin-top: 1rem;
+    span{
+               
         font-size: 0.625rem;
         font-weight: 700;
         padding: .25rem .5rem;
         border-radius: 100px;
         color:  ${props => props.theme.colors["yellow-600"]};
         background: ${props => props.theme.colors["yellow-100"]};
+    }
 `
 export const Actions = styled.div`
     margin-top: 2.281rem;
@@ -58,31 +61,7 @@ export const Actions = styled.div`
     }
 `
 export const InputArea = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2.375rem;
-    width: 4rem;
-    background: ${props => props.theme.colors.Button};
-    border-radius: 6px;
-
-    input{
-        text-align: center;
-        width: 20px;
-        border: none;
-        background: ${props => props.theme.colors.Button};
-
-
-        &::-webkit-inner-spin-button, 
-        &::-webkit-outer-spin-button { 
-        -webkit-appearance: none;
-        }
-    }
-    button{
-        font-size: 1rem;
-        background: ${props => props.theme.colors.Button};
-        color: ${props => props.theme.colors["purple-300"]};;
-    }
+    
 `
 export const Separator = styled.div`
     display: flex;

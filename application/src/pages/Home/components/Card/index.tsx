@@ -1,7 +1,7 @@
-import { Actions, CardContainer, Category, InputArea, Separator } from "./styles";
+import { Actions, CardContainer,Categorys, InputArea, Separator } from "./styles";
 import { ShoppingCart} from 'phosphor-react'
-import CoffeSvg from '../../../../../public/assets/capuccino.svg'
 import { coffeProps } from "../..";
+import { PruoductAmount } from "../../../../components/ProductAmount";
 interface CardProps {
     props: coffeProps
 }
@@ -13,11 +13,11 @@ export function Card({props}: CardProps){
         <CardContainer>
             <img src={image} alt="" />
 
-            <div>
+            <Categorys>
                 {type.map(category => {
-                    return(<Category>{category}</Category>)
+                    return(<span key={category}>{category}</span>)
                 })}
-            </div>
+            </Categorys>
 
             <strong>{name}</strong>
             <p>{description}</p>
@@ -28,12 +28,7 @@ export function Card({props}: CardProps){
                         <span>R$</span><strong>{price}</strong>
                     </div>
                 <Separator>
-                    <InputArea>
-                        <button>-</button>
-                        <input type="number" maxLength={1} defaultValue={1}/>
-                        <button>+</button>
-
-                    </InputArea>
+                    <PruoductAmount/>
                     <ShoppingCart/>
                 </Separator>
 
