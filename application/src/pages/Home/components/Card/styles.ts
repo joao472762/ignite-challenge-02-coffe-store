@@ -50,14 +50,40 @@ export const Actions = styled.div`
     justify-content: space-between;
     gap: 1.437rem;
 
-    svg{
-        padding: .5rem;
+   
+
+    button{
+
+        &:not(:disabled):hover{
+
+            svg{
+
+                background-color: ${props => props.theme.colors["purple-300"]};
+            }
+        }
+        &:disabled{
+
+            svg{
+                cursor: not-allowed;
+                filter: opacity(.9);
+
+            }
+        }
+        svg{
+            padding: .5rem;
+            cursor: pointer;
+            width: 2.375rem;
+            height: 2.375rem;
+            border-radius: 6px;
+            transition: .3s background-color;
+            color:  ${props => props.theme.colors["Card"]};;
+            background-color: ${props => props.theme.colors["purple-600"]};
+    
+        }
+       
+            
+           
         
-        width: 2.375rem;
-        height: 2.375rem;
-        border-radius: 6px;
-        color:  ${props => props.theme.colors["Card"]};;
-        background-color: ${props => props.theme.colors["purple-300"]};
     }
 `
 export const InputArea = styled.div`

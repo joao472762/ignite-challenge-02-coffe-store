@@ -6,8 +6,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { COFFES_API } from "../../services/api";
 
-
-export interface coffeProps  {
+export interface CoffeesInTrolleyProps {
+    id: string,
+    type: []
+    name: string,
+    image: string,
+    price: number
+    description: string,
+    coffeeAmount: number
+}
+export interface coffeeProps  {
     id: string,
     type: []
     name: string,
@@ -17,12 +25,29 @@ export interface coffeProps  {
 }
 
 export function Home(){
-    const [coffes, setCoffes] = useState<coffeProps[]>()
+    const [coffes, setCoffes] = useState<coffeeProps[]>()
+    const [coffeesInTrolley, setCoffesInTrolley] = useState<CoffeesInTrolleyProps[]>([])
 
     useEffect(()=>{
         axios.get(COFFES_API).
         then(respose => setCoffes(()=> respose.data))
     },[])
+
+    function addNewCoffeInTrolley(newCoffee: CoffeesInTrolleyProps){
+        const coffeeSelected = coffeesInTrolley.find(coffe =>{
+            return newCoffee.id === coffe.id
+        })
+        if(coffeeSelected){
+            const coffeesInTroleyWithOneCoffeeChanged = coffeesInTrolley.map(coffee =>{
+                if(coffeeSelected.id === coffee.id){
+                    return newCoffee
+                }
+                return coffee
+            })
+            return setCoffesInTrolley(state => coffeesInTroleyWithOneCoffeeChanged)
+        }
+        setCoffesInTrolley([...coffeesInTrolley,newCoffee])        
+    }
     
     return(
         <HomeContainer>
@@ -57,7 +82,13 @@ export function Home(){
                 <h2>Nossos cafés</h2>
                 <CardsContainer>
                     {coffes?.map(coffe => {
-                        return(<Card  key={coffe.id} props={coffe}/>)
+                        return(
+                            <Card  
+                                key={coffe.id} 
+                                coffeeprops={coffe}
+                                addNewCoffeInTrolley = {addNewCoffeInTrolley}
+                            />
+                        )
                     })}
                 </CardsContainer>
                 
