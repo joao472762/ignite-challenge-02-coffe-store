@@ -23,9 +23,9 @@ export function Purchase(){
     return (
 
         <PurchaseContainer>
-            <h1>Complete seu pedido</h1>
             <form >
                 <FormContainer>
+                    <h1>Complete seu pedido</h1>
                     <section>
                         <HeaderForm>
                             <MapPinLine/>

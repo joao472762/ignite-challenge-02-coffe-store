@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header`
         column-gap: .75rem;
         display: flex;
 
-        a{
+        a{  position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -48,4 +48,21 @@ export const Location = styled.div`
     }
 
 
+`
+export const CoffesAmount = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    right: -8px;
+    top: -8px;
+
+    border-radius: .75rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: .75rem;
+    font-weight: 700;
+    color: ${props => props.theme.colors["white-100"]};
+    background-color: ${props => props.theme.colors["yellow-600"]};
 `

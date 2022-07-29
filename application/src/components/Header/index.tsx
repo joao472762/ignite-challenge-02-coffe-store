@@ -1,9 +1,16 @@
-import { HeaderContainer,Location } from "./styles";
-import CoffeShopLogoSvg from '../../assets/coffe-shop-logo.svg'
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { ShoppingCart, MapPin} from 'phosphor-react'
 
+import { CoffesContext } from "../../context/coffes";
+import CoffeShopLogoSvg from '../../assets/coffe-shop-logo.svg'
+import { CoffesAmount, HeaderContainer,Location } from "./styles";
+
+
 export function Header(){
+    
+    const {coffeesInTrolley} = useContext(CoffesContext)
+
     return(
         <HeaderContainer>
             <NavLink to={'/'}>
@@ -16,6 +23,10 @@ export function Header(){
                 </Location>
                 <NavLink to='/compra'>
                     <ShoppingCart weight="fill"/>
+                    {
+                        coffeesInTrolley.length > 0 
+                        && (<CoffesAmount>{coffeesInTrolley.length}</CoffesAmount>)
+                    }
                 </NavLink>
             </section>
         </HeaderContainer>

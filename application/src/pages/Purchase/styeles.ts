@@ -4,12 +4,7 @@ import styled from "styled-components";
 export const PurchaseContainer = styled.div`
     margin-top: 4rem;
   
-    h1{
-
-        font-size: 1.125rem;
-        color: ${props => props.theme.colors.SubTitle};
-        font-family: ${props => props.theme.fonts.Ballo};
-    }
+  
     form{
         display: grid;
         grid-template-columns: 1fr 28rem;
@@ -21,7 +16,15 @@ export const PurchaseContainer = styled.div`
 export const FormContainer = styled.main`
     display:  flex;
     flex-direction: column;
+
     row-gap: .75rem;
+
+    h1{
+        font-size: 1.125rem;
+        color: ${props => props.theme.colors.SubTitle};
+        font-family: ${props => props.theme.fonts.Ballo};
+    }
+    
     section{
         border-radius: 8px;
         background-color: ${props => props.theme.colors.Card};
@@ -51,6 +54,7 @@ export const HeaderForm = styled.div`
 export const InputArea = styled.div`
    
     display: flex;
+    margin-top: 2rem;
     flex-direction: column;
     row-gap: 1rem;
 
@@ -133,6 +137,9 @@ export const FinalizePurchase = styled.aside`
         background-color: ${props => props.theme.colors.Card};
     }
     ul{
+        display: flex;
+        flex-direction: column;
+        row-gap: 1.5rem;
         list-style: none;
     }
     
