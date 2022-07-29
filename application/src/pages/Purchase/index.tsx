@@ -3,7 +3,6 @@ import { MapPinLine,CreditCard, Bank, Money, Trash ,CurrencyDollar } from 'phosp
 
 import { theme } from '../../theme/styles/default'
 import { CoffesContext } from '../../context/coffes'
-import { PruoductAmount } from '../Home/components/ProductAmount'
 import { 
     InputArea, 
     HeaderForm, 
@@ -19,7 +18,7 @@ import { Card } from './components/Cards'
 
 export function Purchase(){
 
-    const {coffeesInTrolley} = useContext(CoffesContext)
+    const {coffeesInTrolley,priceAllCoffeesFormated,quantityRepeatedCoffees} = useContext(CoffesContext)
     return (
 
         <PurchaseContainer>
@@ -91,15 +90,15 @@ export function Purchase(){
                         <PurchaseValues>
                             <div>
                                 <span>Total de itens</span>
-                                <span>R$ 29,70</span>
+                                <span>{quantityRepeatedCoffees}</span>
                             </div>
                             <div>
                                 <span>Entrega </span>
-                                <span>R$ 3,50</span>
+                                <span>Frete Gratis</span>
                             </div>
                             <div>
                                 <strong> Total </strong>
-                                <strong> R$ 33,20 </strong>
+                                <strong>{priceAllCoffeesFormated}</strong>
                             </div>
                         </PurchaseValues>
                         <CofirmationButton>Confirmar pedido</CofirmationButton>

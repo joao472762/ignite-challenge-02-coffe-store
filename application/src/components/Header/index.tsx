@@ -13,21 +13,23 @@ export function Header(){
 
     return(
         <HeaderContainer>
-            <NavLink to={'/'}>
-                <img src={CoffeShopLogoSvg}/>
-            </NavLink>
             <section>
-                <Location>
-                    <MapPin weight="fill"/>
-                    <span>Porto Alegre, RS</span>
-                </Location>
-                <NavLink to='/compra'>
-                    <ShoppingCart weight="fill"/>
-                    {
-                        coffeesInTrolley.length > 0 
-                        && (<CoffesAmount>{coffeesInTrolley.length}</CoffesAmount>)
-                    }
+                <NavLink to={'/'}>
+                    <img src={CoffeShopLogoSvg}/>
                 </NavLink>
+                <div>
+                    <Location>
+                        <MapPin weight="fill"/>
+                        <span>Porto Alegre, RS</span>
+                    </Location>
+                    <NavLink to='/compra'>
+                        <ShoppingCart weight="fill"/>
+                        {
+                            coffeesInTrolley.length > 0
+                            && (<CoffesAmount>{coffeesInTrolley.length}</CoffesAmount>)
+                        }
+                    </NavLink>
+                </div>
             </section>
         </HeaderContainer>
     )

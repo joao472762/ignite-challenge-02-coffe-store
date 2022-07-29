@@ -16,6 +16,8 @@ interface CoffesContextProviderProps {
 }
 
 interface CoffesContextType {
+    quantityRepeatedCoffees: number,
+    priceAllCoffeesFormated: string,
     coffeesInTrolley: CoffeesInTrolleyProps[]
     UpdateCoffeTrolley: (newCoffee: CoffeesInTrolleyProps) => void,
     deleteOneCoffee: (coffeeId: string) => void
@@ -25,6 +27,18 @@ export const CoffesContext = createContext({} as CoffesContextType)
 
 export function CoffesContextProvider({children}:CoffesContextProviderProps){
     const [coffeesInTrolley, setCoffesInTrolley] = useState<CoffeesInTrolleyProps[]>([])
+
+    const priceAllCoffees = coffeesInTrolley.reduce((priceAllCoffees,currentCoffe)=>{
+        return priceAllCoffees + (currentCoffe.price * currentCoffe.coffeeAmount)
+    },0)
+
+    const priceAllCoffeesFormated = priceAllCoffees.toLocaleString('pt-br',{
+        style: 'currency',
+        currency: 'BRL'
+    })
+    const quantityRepeatedCoffees = coffeesInTrolley.reduce((quantityRepeatedCoffees,currentCoffe)=>{
+        return quantityRepeatedCoffees + currentCoffe.coffeeAmount
+    },0)
 
 
     function UpdateCoffeTrolley(newCoffee: CoffeesInTrolleyProps){
@@ -52,10 +66,12 @@ export function CoffesContextProvider({children}:CoffesContextProviderProps){
 
     return(
         <CoffesContext.Provider value={
-            {
-                UpdateCoffeTrolley,
+            {   
+                quantityRepeatedCoffees,
                 coffeesInTrolley,
-                deleteOneCoffee
+                priceAllCoffeesFormated,
+                deleteOneCoffee,
+                UpdateCoffeTrolley,
             }}>
             {children}
         </CoffesContext.Provider>

@@ -2,10 +2,27 @@ import styled from "styled-components";
 
 
 export const HeaderContainer = styled.header`
-    display:  flex;
-    justify-content: space-between;
+    
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    
+    width: 100vw;
+    z-index: 2;
+    box-shadow: 0px .1px 8px ${props => props.theme.colors["white-300"]};
+    background-color: ${props => props.theme.colors["backgoround"]};
 
     section{
+        padding: 1.25rem 1rem .5rem 1rem;
+        max-width: 72rem;
+        margin: 0 auto;
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    div{
         column-gap: .75rem;
         display: flex;
 

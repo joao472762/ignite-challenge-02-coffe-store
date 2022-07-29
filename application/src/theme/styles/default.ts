@@ -1,7 +1,9 @@
 export const theme = {
     colors: {
         'white-100': '#FFF',
+        'white-300': '#fafafabd',
         backgoround: '#FAFAFA',
+        
         Card:  '#F3F2F2',
         Input: '#EDEDED',
         Button:'#E6E5E5',

@@ -11,6 +11,12 @@ export function Card({props}:CardProps){
     const {image,name,price,coffeeAmount,id} = props
     const {UpdateCoffeTrolley,deleteOneCoffee} = useContext(CoffesContext)
 
+    const coffeQuantityPrice = (coffeeAmount * price)
+    const coffeeQuantityPriceFormated = coffeQuantityPrice.toLocaleString('pt-br',{
+        style: 'currency',
+        currency: 'BRL'
+    })
+
 
     function handleIncreaseCoffeeAmount(event: MouseEvent){
         event.preventDefault()
@@ -31,10 +37,8 @@ export function Card({props}:CardProps){
         event.preventDefault()
         deleteOneCoffee(id)
     }
-    const priceFormated = price.toLocaleString('pt-br',{
-        style: 'currency',
-        currency: 'BRL'
-    })
+    
+   
 
     return(
         <CardContainer>
@@ -64,7 +68,7 @@ export function Card({props}:CardProps){
                     </button>
                 </Actions>
             </div>
-            <strong>{priceFormated}</strong>
+            <strong>{coffeeQuantityPriceFormated}</strong>
         </CardContainer>
     )
 }
