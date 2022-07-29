@@ -138,52 +138,7 @@ export const FinalizePurchase = styled.aside`
     
 
 `
-export const Product = styled.li`
-    display: flex;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid ${props => props.theme.colors.Button};;
 
-    img{
-        width: 4rem;
-        height: 4rem;
-        margin-right: 1.25rem;
-    }
-    & > div{
-        margin-right: 3.125rem;
-
-        span{
-            color: ${props => props.theme.colors.SubTitle};
-        }
-    }
-`
-export const Actions = styled.div`
-    margin-top: .5rem;
-    display: flex;
-    column-gap: .5rem;
-
-    button.remove{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        column-gap: 0.375rem;
-        cursor: pointer;
-        padding: .5rem;
-        border-radius: 6px;
-        background-color: ${props => props.theme.colors.Button};
-        color: ${props => props.theme.colors.Text};
-        transition: .2s background-color;
-
-        &:hover{
-            background-color: ${props => props.theme.colors.Hover};
-
-        }
-
-        svg{
-            color: ${props => props.theme.colors["purple-300"]};
-        }
-    }
-`
 export const PurchaseValues = styled.div`
     display: flex;
     flex-direction: column;

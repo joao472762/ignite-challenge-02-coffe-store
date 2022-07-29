@@ -11,17 +11,9 @@ export const PruoductAmountContainer = styled.div`
     background: ${props => props.theme.colors.Button};
     border-radius: 6px;
 
-    input{
-        text-align: center;
-        width: 20px;
-        border: none;
-        background: ${props => props.theme.colors.Button};
-
-
-        &::-webkit-inner-spin-button, 
-        &::-webkit-outer-spin-button { 
-        -webkit-appearance: none;
-        }
+    span{
+        user-select: none;
+        color: ${props => props.theme.colors.Text}
     }
    
 `

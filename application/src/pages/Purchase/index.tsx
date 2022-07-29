@@ -1,10 +1,25 @@
-import {MapPinLine,CreditCard, Bank, Money, Trash ,CurrencyDollar} from 'phosphor-react'
-import { PruoductAmount } from '../../components/ProductAmount'
+import { useContext } from 'react'
+import { MapPinLine,CreditCard, Bank, Money, Trash ,CurrencyDollar } from 'phosphor-react'
+
 import { theme } from '../../theme/styles/default'
-import { Actions, CofirmationButton, FinalizePurchase, FormContainer, HeaderForm, InputArea, PaymentsMethods, Product, PurchaseContainer, PurchaseValues } from './styeles'
+import { CoffesContext } from '../../context/coffes'
+import { PruoductAmount } from '../Home/components/ProductAmount'
+import { 
+    InputArea, 
+    HeaderForm, 
+    FormContainer, 
+    PurchaseValues,
+    PaymentsMethods, 
+    FinalizePurchase, 
+    CofirmationButton, 
+    PurchaseContainer, 
+ } from './styeles'
+import { Card } from './components/Cards'
 
 
 export function Purchase(){
+
+    const {coffeesInTrolley} = useContext(CoffesContext)
     return (
 
         <PurchaseContainer>
@@ -62,20 +77,16 @@ export function Purchase(){
                     <h1>Cafés selecionados</h1>
                     <section>
                         <ul>
-                            <Product>
-                                <img src='http://127.0.0.1:5173/assets/expressoTradicional.svg'/>
-                                <div>             
-                                    <span>Expresso Tradicional</span>
-                                    <Actions>
-                                        <PruoductAmount/>
-                                        <button className='remove'>
-                                            <Trash/>
-                                            <span>Remover</span>
-                                        </button>
-                                    </Actions>
-                                </div>
-                                <strong>R$ 9.90</strong>
-                            </Product>
+                            {
+                                coffeesInTrolley.map(coffee => {
+                                    return(
+                                        <Card
+                                        key={coffee.id}
+                                            props={coffee}
+                                        />
+                                    )
+                                })
+                            }
                         </ul>
                         <PurchaseValues>
                             <div>

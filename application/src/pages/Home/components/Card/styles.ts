@@ -55,14 +55,12 @@ export const Actions = styled.div`
     button{
 
         &:not(:disabled):hover{
-
             svg{
 
                 background-color: ${props => props.theme.colors["purple-300"]};
             }
         }
         &:disabled{
-
             svg{
                 cursor: not-allowed;
                 filter: opacity(.9);

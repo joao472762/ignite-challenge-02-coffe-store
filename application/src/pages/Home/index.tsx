@@ -1,20 +1,19 @@
-import { CardsContainer, HomeContainer, Information, InformationConatiner, Presentation } from "./styles";
-import { ShoppingCart, Timer, Package, Coffee} from 'phosphor-react'
-import coffeImage from '../../assets/coffeImage.svg'
-import { Card } from "./components/Card";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import { COFFES_API } from "../../services/api";
+import { useEffect, useState } from "react";
+import { ShoppingCart, Timer, Package, Coffee} from 'phosphor-react'
 
-export interface CoffeesInTrolleyProps {
-    id: string,
-    type: []
-    name: string,
-    image: string,
-    price: number
-    description: string,
-    coffeeAmount: number
-}
+import { Card } from "./components/Card";
+import { COFFEES_API } from "../../services/api";
+import coffeImage from '../../assets/coffeImage.svg'
+import { 
+    Information, 
+    Presentation,
+    HomeContainer,
+    CardsContainer, 
+    InformationConatiner, 
+} from "./styles";
+
+
 export interface coffeeProps  {
     id: string,
     type: []
@@ -25,29 +24,12 @@ export interface coffeeProps  {
 }
 
 export function Home(){
-    const [coffes, setCoffes] = useState<coffeeProps[]>()
-    const [coffeesInTrolley, setCoffesInTrolley] = useState<CoffeesInTrolleyProps[]>([])
+    const [coffees, setCoffees] = useState<coffeeProps[]>([])
 
     useEffect(()=>{
-        axios.get(COFFES_API).
-        then(respose => setCoffes(()=> respose.data))
-    },[])
-
-    function addNewCoffeInTrolley(newCoffee: CoffeesInTrolleyProps){
-        const coffeeSelected = coffeesInTrolley.find(coffe =>{
-            return newCoffee.id === coffe.id
-        })
-        if(coffeeSelected){
-            const coffeesInTroleyWithOneCoffeeChanged = coffeesInTrolley.map(coffee =>{
-                if(coffeeSelected.id === coffee.id){
-                    return newCoffee
-                }
-                return coffee
-            })
-            return setCoffesInTrolley(state => coffeesInTroleyWithOneCoffeeChanged)
-        }
-        setCoffesInTrolley([...coffeesInTrolley,newCoffee])        
-    }
+        axios.get(COFFEES_API).
+        then(respose => setCoffees(()=> respose.data))
+    },[setCoffees])
     
     return(
         <HomeContainer>
@@ -58,35 +40,34 @@ export function Home(){
                     
                     <InformationConatiner>
                         <Information variant="yellow-600">
-                            <ShoppingCart/>
+                            <ShoppingCart weight="fill"/>
                             <span>Compra simples e segura   </span>
                         </Information>
                         <Information variant="Text">
-                            <Package/>
+                            <Package weight="fill"/>
                             <span>Embalagem mantém o café intacto</span>
                         </Information>
                         <Information variant="yellow-300">
-                            <Timer/>
+                            <Timer weight="fill"/>
                             <span>Entrega rápida e rastreada</span>
                         </Information>
                         <Information variant="purple-300">
-                            <Coffee/>
+                            <Coffee weight="fill"/>
                             <span>O café chega fresquinho até você</span>
                         </Information>
                     </InformationConatiner>
 
                 </Presentation>
-                <img src={coffeImage} alt="" /> 
+                <img src={coffeImage} /> 
             </aside>
             <main>
                 <h2>Nossos cafés</h2>
                 <CardsContainer>
-                    {coffes?.map(coffe => {
+                    {coffees?.map(coffee => {
                         return(
                             <Card  
-                                key={coffe.id} 
-                                coffeeprops={coffe}
-                                addNewCoffeInTrolley = {addNewCoffeInTrolley}
+                                key={coffee.id} 
+                                coffeeprops={coffee}
                             />
                         )
                     })}

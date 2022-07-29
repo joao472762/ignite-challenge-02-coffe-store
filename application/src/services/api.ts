@@ -1,1 +1,1 @@
-export const COFFES_API = 'http://localhost:3000/api'
+export const COFFEES_API = 'http://localhost:3000/api'

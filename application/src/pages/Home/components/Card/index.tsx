@@ -1,37 +1,46 @@
-import { Actions, CardContainer,Categorys, InputArea, Separator } from "./styles";
 import { ShoppingCart} from 'phosphor-react'
-import { coffeeProps, CoffeesInTrolleyProps } from "../..";
-import { PruoductAmount } from "../../../../components/ProductAmount";
-import { useState } from "react";
+import { useContext, useState } from "react";
+
+import { coffeeProps } from "../..";
+import { PruoductAmount } from "../ProductAmount";
+import { Actions, CardContainer,Categorys, Separator } from "./styles";
+import { CoffeesInTrolleyProps, CoffesContext } from "../../../../context/coffes";
 
 
 interface CardProps {
     coffeeprops: coffeeProps,
-    addNewCoffeInTrolley: (newCoffe:CoffeesInTrolleyProps) => void
 }
 
 
-export function Card({coffeeprops,addNewCoffeInTrolley}: CardProps){
-    const {id,description,image, name,price,type} = coffeeprops
+export function Card({coffeeprops}: CardProps){
+    const {id, description,image, name,price,type} = coffeeprops
+    const {UpdateCoffeTrolley, coffeesInTrolley} = useContext(CoffesContext)
     
-    const [coffeeAmount, setcoffeeAmount] = useState(0)
-    function incrementCoffeesAmount(increment: number){
-        setcoffeeAmount(state => {
-            if(state >= 1){
-                return state + increment
-            }
-            return 1
+    const [coffeeAmount, setcoffeeAmount] = useState(() => {
+        const currentCoffeExistInTrolley = coffeesInTrolley.find(coffe =>{
+            return coffe.id === id 
         })
-       
+        if(currentCoffeExistInTrolley){
+            return currentCoffeExistInTrolley.coffeeAmount
+        }
+        return 0
+    })
+
+    function changeCoffeeAmount(value: number){
+        if(coffeeAmount <= 0 && value <= 0){
+            return
+        }
+        setcoffeeAmount(state => state + value)     
     }
-    function handleAddNewCoffeInTrolley(){
+    
+    function handleUpdateCoffeTrolley(){
         const newCoffee : CoffeesInTrolleyProps  = {...coffeeprops,coffeeAmount: coffeeAmount}
-        addNewCoffeInTrolley(newCoffee)
-      
+        UpdateCoffeTrolley(newCoffee)
     }
 
     const priceFormated = (price.toLocaleString('pt-br', {  minimumSignificantDigits: 3}))
     const isDisabled = coffeeAmount < 1
+
     return(
         <CardContainer>
             <img src={image} alt="" />
@@ -44,28 +53,24 @@ export function Card({coffeeprops,addNewCoffeInTrolley}: CardProps){
 
             <strong>{name}</strong>
             <p>{description}</p>
-
             <Actions>
-                    
-                    <div>
-                        <span>R$ </span><strong>{priceFormated}</strong>
-                    </div>
+                <div>
+                    <span>R$ </span><strong>{priceFormated}</strong>
+                </div>
                 <Separator>
 
                     <PruoductAmount
-                        incrementCoffeesAmount={incrementCoffeesAmount}
+                        changeCoffeeAmount={changeCoffeeAmount}
                         coffeeAmount={coffeeAmount}
                     />
                     <button
-                        onClick={handleAddNewCoffeInTrolley}
+                        onClick={handleUpdateCoffeTrolley}
                         disabled={isDisabled}
                     >
-                        <ShoppingCart/>
+                        <ShoppingCart weight='fill'/>
                     </button>
                 </Separator>
-
             </Actions>
-
         </CardContainer>
     )
 }
