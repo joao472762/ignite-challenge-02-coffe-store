@@ -1,10 +1,13 @@
-import { useContext } from 'react'
-import { MapPinLine,CreditCard, Bank, Money, Trash ,CurrencyDollar } from 'phosphor-react'
+import { useContext, useState } from 'react'
+import { CreditCard, Bank, Money, CurrencyDollar } from 'phosphor-react'
+import * as zod from 'zod'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {FormProvider, useForm} from 'react-hook-form'
 
 import { theme } from '../../theme/styles/default'
 import { CoffesContext } from '../../context/coffes'
 import { 
-    InputArea, 
     HeaderForm, 
     FormContainer, 
     PurchaseValues,
@@ -14,47 +17,67 @@ import {
     PurchaseContainer, 
  } from './styeles'
 import { Card } from './components/Cards'
+import { AdrressForm } from './components/AdrreessForm'
+
+const newAddressValidationSchema = zod.object({
+    city: zod.string(),
+    street: zod.string(),
+    houseNumber: zod.number(),
+    neighborhood: zod.string(),
+    state: zod.string(),
+    complement: zod.string().optional(),
+    cep: zod.string()
+})
+export type newAddressValidationSchemaData = zod.infer<typeof newAddressValidationSchema>
+
+interface addreessInfromationProps{
+    cep: string
+    street: string
+    houseNumber: number
+    complement?: string 
+    neighborhood: string
+    city: string
+    state: string
+}
 
 
 export function Purchase(){
+    const [addreessInfromation, setAddresInformation] = useState<addreessInfromationProps>()
+    const navigate = useNavigate()
+
+    const newAdrressForm = useForm<newAddressValidationSchemaData>({
+        resolver: zodResolver(newAddressValidationSchema)
+    })
+    const {reset,handleSubmit} = newAdrressForm
+
+    function handleCreateNewAdrressInformation(data: newAddressValidationSchemaData){
+        setAddresInformation(data)
+        console.log(addreessInfromation)
+        navigate('/entrega',{replace:true})
+        reset()
+        
+    }
 
     const {coffeesInTrolley,priceAllCoffeesFormated,quantityRepeatedCoffees} = useContext(CoffesContext)
     return (
 
         <PurchaseContainer>
-            <form >
+            <form onSubmit={handleSubmit(handleCreateNewAdrressInformation)}>
                 <FormContainer>
                     <h1>Complete seu pedido</h1>
+
+                    <FormProvider {...newAdrressForm}>
+                        <AdrressForm/>
+                    </FormProvider>
                     <section>
                         <HeaderForm>
-                            <MapPinLine/>
-                            <div>
-                                <h2>Endereço de entrega</h2>
-                                <p>Informe o endereço onde deseja receber seu pedido</p>
-                            </div>
-                        </HeaderForm>
-                        <InputArea>
-                            <input type="text" className='cep' placeholder='Cep' />
-                            <input type="text"className='street' placeholder='Rua' />
-                            <div>
-                                <input type="number" placeholder='Número' />
-                                <input type="text" className='complement' placeholder='Complemento' />
-                            </div>
-                            <div>
-                                <input type="text" className='' placeholder='Bairro' />
-                                <input type="text" placeholder='Cidade' />
-                                <input type="text" placeholder='UF' />
-                            </div>
-                        </InputArea>
-                    </section>
-                    <section>
-                         <HeaderForm>
                             <CurrencyDollar color={theme.colors['purple-600']}/>
                             <div>
                                 <h2>Pagamento</h2>
                                 <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
                             </div>
                         </HeaderForm>
+
                         <PaymentsMethods>
                             <button>
                                 <CreditCard/>
@@ -69,9 +92,9 @@ export function Purchase(){
                                 <span>DINHEIRO</span>
                             </button>
                         </PaymentsMethods>
-            
                     </section>
                 </FormContainer>
+
                 <FinalizePurchase>
                     <h1>Cafés selecionados</h1>
                     <section>
@@ -101,7 +124,8 @@ export function Purchase(){
                                 <strong>{priceAllCoffeesFormated}</strong>
                             </div>
                         </PurchaseValues>
-                        <CofirmationButton>Confirmar pedido</CofirmationButton>
+                        
+                        <CofirmationButton type='submit'>Confirmar pedido</CofirmationButton>
                     </section>
                 </FinalizePurchase>
             </form>
