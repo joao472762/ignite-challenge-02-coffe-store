@@ -18,8 +18,6 @@ interface CoffesContextType {
 }
 export const CoffesContext = createContext({} as CoffesContextType)
 
-
-
 export function CoffesContextProvider({children}:CoffesContextProviderProps){
     const [coffeesInTrolley,dispatch] = useReducer(Reducer,[], ()=> {
         const storage = localStorage.getItem('@coffe_store:coffes_trolley1.0.0')

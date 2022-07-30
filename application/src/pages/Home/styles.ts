@@ -24,9 +24,37 @@ export const HomeContainer = styled.div`
         display: flex;
         justify-content: space-between;
         column-gap: 3.5rem;
+
+        @media (max-width: 800px) {
+            row-gap: 3.5rem;
+            align-items: center;
+            flex-direction: column;
+
+            img{
+                width: 100%;
+                max-width: 400px;
+            }
+         }
+         @media (max-width: 400px){
+            h1{
+                text-align: center;
+                font-size: 2rem;
+                line-height: normal;
+            }
+         }
+
+        
     }
     main{
         margin-top: 8.75rem;
+
+        @media (max-width: 800px){
+            margin-top: 3.0rem;
+
+            h2{
+                text-align: center;
+            }
+        }
 
         h2{
             font-size: 2rem;

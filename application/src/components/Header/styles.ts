@@ -14,8 +14,8 @@ export const HeaderContainer = styled.header`
     background-color: ${props => props.theme.colors["backgoround"]};
 
     section{
-        padding: 1.25rem 1rem .5rem 1rem;
-        max-width: 72rem;
+        padding: 1.25rem 2rem .5rem 2rem;
+        max-width: 74rem;
         margin: 0 auto;
         flex: 1;
         display: flex;

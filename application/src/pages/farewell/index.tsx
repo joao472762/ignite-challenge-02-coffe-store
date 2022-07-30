@@ -1,13 +1,12 @@
-import {CurrencyDollar,Timer,MapPin} from 'phosphor-react'
 import { useContext } from 'react'
-import IlustrationSvg from '../../assets/Illustration.svg'
 import { PessoalDatas } from '../../context/pessoalDatas'
-import { theme } from '../../theme/styles/default'
+import {CurrencyDollar,Timer,MapPin} from 'phosphor-react'
+import IlustrationSvg from '../../assets/Illustration.svg'
 import { FarewellContainer, IconContainer, InformationsContaier } from './styles'
+
 export function Farewell(){
     const {addreessInfromation,paymentMethod} = useContext(PessoalDatas)
     function formatPaymentMethod(){
- 
         switch(paymentMethod){
             case 'crédito':
                 return 'Cartão de Crédio';
@@ -15,7 +14,7 @@ export function Farewell(){
                 return 'Cartão de débito'
             case 'dinheiro':
                 return 'Dinheiro';
-            default: 'Dinheiro'
+            default: return 'Dinheiro'
         }
 
     }
@@ -34,7 +33,7 @@ export function Farewell(){
                         </IconContainer>
                         <p>Entrega em <strong>{addreessInfromation?.street}
                         </strong>
-                            {addreessInfromation?.neighborhood}, {addreessInfromation?.houseNumber}   
+                            {` ${addreessInfromation?.neighborhood}`}{`, ${addreessInfromation?.houseNumber} `}   
                             {addreessInfromation?.city} - {addreessInfromation?.state}</p>
                     </div>
                     <div>

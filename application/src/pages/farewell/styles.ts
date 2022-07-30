@@ -8,6 +8,24 @@ export const FarewellContainer = styled.div`
 
     margin-top: 7rem;
 
+    @media (max-width: 800px) {
+            row-gap: 3.5rem;
+            align-items: center;
+            flex-direction: column;
+
+            img{
+                width: 100%;
+                max-width: 400px;
+            }
+         }
+         @media (max-width: 400px){
+            h1{
+                text-align: center;
+                font-size: 2rem;
+                line-height: normal;
+            }
+         }
+
     main{
         flex: 1;
 

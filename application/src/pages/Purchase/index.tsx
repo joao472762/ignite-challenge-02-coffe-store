@@ -1,8 +1,8 @@
 import * as zod from 'zod'
-import {NavLink, useNavigate} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import { useContext, MouseEvent } from 'react'
-import {zodResolver} from '@hookform/resolvers/zod'
-import {FormProvider, useForm} from 'react-hook-form'
+import { zodResolver} from '@hookform/resolvers/zod'
+import { FormProvider, useForm } from 'react-hook-form'
 
 import { Card } from './components/Cards'
 import { CoffesContext } from '../../context/coffes'
@@ -15,7 +15,7 @@ import {
     CofirmationButton, 
     PurchaseContainer,
     ShowFormAddrress,
-} from './styeles'
+} from './styles'
 import { PaymentsMethod } from './components/PaymentsMethod'
 
 const newAddressValidationSchema = zod.object({
@@ -54,6 +54,9 @@ export function Purchase(){
     const {reset,handleSubmit} = newAdrressForm
 
     function handleCreateNewAdrressInformation(data: newAddressValidationSchemaData){
+        if(quantityRepeatedCoffees <1){
+            return
+        }
         createNewAddressInfromation(data)
         ClearCoffeeTrolley()
         navigate('/entrega',{replace:true})

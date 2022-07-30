@@ -24,6 +24,7 @@ export const CardContainer = styled.div`
         margin-top: .5rem;
         font-size: 0.875rem;
         line-height: 1.125rem;
+        text-align: center;
         color:  ${props => props.theme.colors["Label"]}
     }
   

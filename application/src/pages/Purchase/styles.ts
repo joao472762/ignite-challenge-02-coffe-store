@@ -11,6 +11,10 @@ export const PurchaseContainer = styled.div`
         column-gap: 2rem;
 
         margin-top: 0.937rem;
+
+        @media (max-width: 900px){
+            grid-template-columns: minmax(300px,1fr);
+        }
     }
 `
 export const FormContainer = styled.main`

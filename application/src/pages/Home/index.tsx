@@ -13,7 +13,6 @@ import {
     InformationConatiner, 
 } from "./styles";
 
-
 export interface coffeeProps  {
     id: string,
     type: []
