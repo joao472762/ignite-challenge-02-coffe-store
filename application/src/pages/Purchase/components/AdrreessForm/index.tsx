@@ -1,20 +1,19 @@
 import { MapPinLine } from "phosphor-react";
 import { useFormContext } from "react-hook-form";
 import { newAddressValidationSchemaData } from "../..";
-import { HeaderForm } from "../../styeles";
-import { AdrressFormContainer, InputArea } from "./styles";
+import { AdrressFormContainer, Header, InputArea } from "./styles";
 
 export function AdrressForm(){
     const {register} = useFormContext<newAddressValidationSchemaData>()
     return(
         <AdrressFormContainer>
-            <HeaderForm>
+            <Header>
                 <MapPinLine/>
                 <div>
                     <h2>Endereço de entrega</h2>
                     <p>Informe o endereço onde deseja receber seu pedido</p>
                 </div>
-            </HeaderForm>
+            </Header>
             <InputArea>
                 <input
                     {...register('cep',{required:true})}

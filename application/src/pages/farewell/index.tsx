@@ -1,9 +1,27 @@
 import {CurrencyDollar,Timer,MapPin} from 'phosphor-react'
+import { useContext } from 'react'
 import IlustrationSvg from '../../assets/Illustration.svg'
+import { PessoalDatas } from '../../context/pessoalDatas'
 import { theme } from '../../theme/styles/default'
 import { FarewellContainer, IconContainer, InformationsContaier } from './styles'
 export function Farewell(){
-    const {} = theme
+    const {addreessInfromation,paymentMethod} = useContext(PessoalDatas)
+    function formatPaymentMethod(){
+ 
+        switch(paymentMethod){
+            case 'crédito':
+                return 'Cartão de Crédio';
+            case 'débito':
+                return 'Cartão de débito'
+            case 'dinheiro':
+                return 'Dinheiro';
+            default: 'Dinheiro'
+        }
+
+    }
+    const paymentMethodFormated = formatPaymentMethod()
+   
+
     return (
         <FarewellContainer>
             <main>
@@ -14,7 +32,10 @@ export function Farewell(){
                         <IconContainer>
                             <MapPin weight='fill' size={40}/>
                         </IconContainer>
-                        <p>Entrega em <strong>Rua João Daniel Martinelli 102</strong>Farrapos - Porto Alegre, RS</p>
+                        <p>Entrega em <strong>{addreessInfromation?.street}
+                        </strong>
+                            {addreessInfromation?.neighborhood}, {addreessInfromation?.houseNumber}   
+                            {addreessInfromation?.city} - {addreessInfromation?.state}</p>
                     </div>
                     <div>
                         <Timer weight='fill' className='timer'/>
@@ -27,7 +48,7 @@ export function Farewell(){
                         <CurrencyDollar className='currency'/>
                         <div>
                             <span>Pagamento na entrega</span>
-                            <strong>Cartão de Crédito</strong>
+                            <strong>{paymentMethodFormated}</strong>
                         </div>
                     </div>
                 </InformationsContaier>

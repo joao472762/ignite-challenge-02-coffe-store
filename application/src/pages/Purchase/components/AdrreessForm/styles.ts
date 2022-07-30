@@ -7,6 +7,25 @@ export const AdrressFormContainer = styled.section`
     padding: 2.5rem;
     
 `
+export const Header = styled.div`
+    display: flex;
+    align-items: baseline;
+    column-gap: .5rem;
+    svg{
+        color: ${props => props.theme.colors["yellow-600"]};
+    }
+    div{
+        h2{
+            font-size: 1rem;
+            font-weight: normal;
+            color: ${props => props.theme.colors.SubTitle};
+        }
+        p{
+            font-size: .875rem;
+            color: ${props => props.theme.colors.Text};
+        }  
+    }
+`
 
 export const InputArea = styled.div`
     display: flex;

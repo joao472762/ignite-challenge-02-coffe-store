@@ -19,6 +19,7 @@ interface CoffesContextType {
     quantityRepeatedCoffees: number,
     priceAllCoffeesFormated: string,
     coffeesInTrolley: CoffeesInTrolleyProps[]
+    ClearCoffeeTrolley: () => void
     UpdateCoffeTrolley: (newCoffee: CoffeesInTrolleyProps) => void,
     deleteOneCoffee: (coffeeId: string) => void
 }
@@ -63,14 +64,18 @@ export function CoffesContextProvider({children}:CoffesContextProviderProps){
         })
         setCoffesInTrolley(state => coffeTolleyWithoutOneCoffee)
     }
+    function ClearCoffeeTrolley(){
+        setCoffesInTrolley(() => [])
+    }
 
     return(
         <CoffesContext.Provider value={
             {   
-                quantityRepeatedCoffees,
                 coffeesInTrolley,
+                quantityRepeatedCoffees,
                 priceAllCoffeesFormated,
                 deleteOneCoffee,
+                ClearCoffeeTrolley,
                 UpdateCoffeTrolley,
             }}>
             {children}

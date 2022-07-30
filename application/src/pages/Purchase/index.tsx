@@ -1,23 +1,22 @@
-import { useContext, useState } from 'react'
-import { CreditCard, Bank, Money, CurrencyDollar } from 'phosphor-react'
 import * as zod from 'zod'
-import {Link, Navigate, useNavigate} from 'react-router-dom'
+import {NavLink, useNavigate} from 'react-router-dom'
+import { useContext, MouseEvent } from 'react'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {FormProvider, useForm} from 'react-hook-form'
 
-import { theme } from '../../theme/styles/default'
+import { Card } from './components/Cards'
 import { CoffesContext } from '../../context/coffes'
-import { 
-    HeaderForm, 
+import { AdrressForm } from './components/AdrreessForm'
+import { PessoalDatas } from '../../context/pessoalDatas'
+import {  
     FormContainer, 
     PurchaseValues,
-    PaymentsMethods, 
     FinalizePurchase, 
     CofirmationButton, 
-    PurchaseContainer, 
- } from './styeles'
-import { Card } from './components/Cards'
-import { AdrressForm } from './components/AdrreessForm'
+    PurchaseContainer,
+    ShowFormAddrress,
+} from './styeles'
+import { PaymentsMethod } from './components/PaymentsMethod'
 
 const newAddressValidationSchema = zod.object({
     city: zod.string(),
@@ -30,69 +29,68 @@ const newAddressValidationSchema = zod.object({
 })
 export type newAddressValidationSchemaData = zod.infer<typeof newAddressValidationSchema>
 
-interface addreessInfromationProps{
-    cep: string
-    street: string
-    houseNumber: number
-    complement?: string 
-    neighborhood: string
-    city: string
-    state: string
-}
+
 
 
 export function Purchase(){
-    const [addreessInfromation, setAddresInformation] = useState<addreessInfromationProps>()
     const navigate = useNavigate()
+    const {
+        coffeesInTrolley,
+        priceAllCoffeesFormated,
+        quantityRepeatedCoffees,
+        ClearCoffeeTrolley,
+    } = useContext(CoffesContext)
+    
+    const {
+        addreessInfromation,
+        reseatAdrressInformations,
+        createNewAddressInfromation,
+    } = useContext(PessoalDatas)
 
     const newAdrressForm = useForm<newAddressValidationSchemaData>({
         resolver: zodResolver(newAddressValidationSchema)
     })
+
     const {reset,handleSubmit} = newAdrressForm
 
     function handleCreateNewAdrressInformation(data: newAddressValidationSchemaData){
-        setAddresInformation(data)
-        console.log(addreessInfromation)
+        createNewAddressInfromation(data)
+        ClearCoffeeTrolley()
         navigate('/entrega',{replace:true})
         reset()
         
     }
-
-    const {coffeesInTrolley,priceAllCoffeesFormated,quantityRepeatedCoffees} = useContext(CoffesContext)
+    function handleFinishePurchase(){
+        if(quantityRepeatedCoffees <1){
+            return
+        }
+        ClearCoffeeTrolley()
+        navigate('/entrega',{replace:true})
+    }
+    function handleResetAdrresInformation(event: MouseEvent){
+        event.preventDefault()
+        reseatAdrressInformations()
+    }
+    
+    
     return (
 
         <PurchaseContainer>
             <form onSubmit={handleSubmit(handleCreateNewAdrressInformation)}>
                 <FormContainer>
                     <h1>Complete seu pedido</h1>
-
                     <FormProvider {...newAdrressForm}>
-                        <AdrressForm/>
-                    </FormProvider>
-                    <section>
-                        <HeaderForm>
-                            <CurrencyDollar color={theme.colors['purple-600']}/>
-                            <div>
-                                <h2>Pagamento</h2>
-                                <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
-                            </div>
-                        </HeaderForm>
+                        {
+                            !addreessInfromation 
+                            ? <AdrressForm/>
 
-                        <PaymentsMethods>
-                            <button>
-                                <CreditCard/>
-                                <span>CARTÃO DE CRÉDITO</span>
-                            </button>
-                            <button>
-                                <Bank/>
-                                <span>CARTÃO DE DÉBITO</span>
-                            </button>
-                            <button>
-                                <Money/>
-                                <span>DINHEIRO</span>
-                            </button>
-                        </PaymentsMethods>
-                    </section>
+                            :(  <ShowFormAddrress onClick={handleResetAdrresInformation}>
+                                 Alterar endereço
+                                </ShowFormAddrress>
+                            )
+                        }
+                    </FormProvider>
+                    <PaymentsMethod/>
                 </FormContainer>
 
                 <FinalizePurchase>
@@ -100,14 +98,10 @@ export function Purchase(){
                     <section>
                         <ul>
                             {
-                                coffeesInTrolley.map(coffee => {
-                                    return(
-                                        <Card
-                                        key={coffee.id}
-                                            props={coffee}
-                                        />
-                                    )
-                                })
+                                coffeesInTrolley.map
+                                (
+                                    coffee => <Card key={coffee.id} props={coffee}/>
+                                )
                             }
                         </ul>
                         <PurchaseValues>
@@ -124,8 +118,16 @@ export function Purchase(){
                                 <strong>{priceAllCoffeesFormated}</strong>
                             </div>
                         </PurchaseValues>
-                        
-                        <CofirmationButton type='submit'>Confirmar pedido</CofirmationButton>
+                        {
+                            addreessInfromation 
+                            ? (
+                                <CofirmationButton onClick={handleFinishePurchase}>
+                                Confirmar pedido
+                                </CofirmationButton>
+                            )
+
+                            : <CofirmationButton type='submit'>Confirmar pedido</CofirmationButton>
+                        }
                     </section>
                 </FinalizePurchase>
             </form>

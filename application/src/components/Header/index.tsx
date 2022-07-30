@@ -5,11 +5,13 @@ import { ShoppingCart, MapPin} from 'phosphor-react'
 import { CoffesContext } from "../../context/coffes";
 import CoffeShopLogoSvg from '../../assets/coffe-shop-logo.svg'
 import { CoffesAmount, HeaderContainer,Location } from "./styles";
+import { PessoalDatas } from "../../context/pessoalDatas";
 
 
 export function Header(){
     
     const {coffeesInTrolley} = useContext(CoffesContext)
+    const {addreessInfromation} = useContext(PessoalDatas)
 
     return(
         <HeaderContainer>
@@ -20,7 +22,9 @@ export function Header(){
                 <div>
                     <Location>
                         <MapPin weight="fill"/>
-                        <span>Porto Alegre, RS</span>
+                        {addreessInfromation &&
+                            <span>{`${addreessInfromation?.city}, `}{addreessInfromation?.state}</span>
+                        }
                     </Location>
                     <NavLink to='/compra'>
                         <ShoppingCart weight="fill"/>
