@@ -1,6 +1,7 @@
 import { Trash } from "phosphor-react";
 import { useContext, MouseEvent } from "react";
-import { CoffeesInTrolleyProps, CoffesContext } from "../../../../context/coffes";
+import { CoffesContext } from "../../../../context/coffes";
+import { CoffeesInTrolleyProps } from "../../../../reducer/Coffes";
 import { Actions, CardContainer,AddButton,MinusButton, CoffeeAmount} from "./styles";
 
 interface CardProps {

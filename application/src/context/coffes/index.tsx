@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useReducer, useState} from "react";
 import { CoffeesInTrolleyProps, Reducer } from "../../reducer/Coffes";
+import { createContext, ReactNode, useEffect, useReducer} from "react";
 import { ClearCoffeeTrolleyAction, deleteOneCoffeeAction, UpdateCoffeTrolleyAction } from "../../reducer/Coffes/actions";
 
 
@@ -21,7 +21,18 @@ export const CoffesContext = createContext({} as CoffesContextType)
 
 
 export function CoffesContextProvider({children}:CoffesContextProviderProps){
-    const [coffeesInTrolley,dispatch] = useReducer(Reducer,[])
+    const [coffeesInTrolley,dispatch] = useReducer(Reducer,[], ()=> {
+        const storage = localStorage.getItem('@coffe_store:coffes_trolley1.0.0')
+        if(storage){
+            return JSON.parse(storage)
+        }
+        return []
+    })
+
+    useEffect(()=>{
+        const state = JSON.stringify(coffeesInTrolley)
+        localStorage.setItem('@coffe_store:coffes_trolley1.0.0',state)
+    },[coffeesInTrolley])
     
     const priceAllCoffees = coffeesInTrolley.reduce((priceAllCoffees,currentCoffe)=>{
         return priceAllCoffees + (currentCoffe.price * currentCoffe.coffeeAmount)
