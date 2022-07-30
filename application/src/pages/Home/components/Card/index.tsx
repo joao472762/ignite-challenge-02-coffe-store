@@ -4,7 +4,8 @@ import { useContext, useState } from "react";
 import { coffeeProps } from "../..";
 import { PruoductAmount } from "../ProductAmount";
 import { Actions, CardContainer,Categorys, Separator } from "./styles";
-import { CoffeesInTrolleyProps, CoffesContext } from "../../../../context/coffes";
+import { CoffesContext } from "../../../../context/coffes";
+import { CoffeesInTrolleyProps } from '../../../../reducer/Coffes';
 
 
 interface CardProps {

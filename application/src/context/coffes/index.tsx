@@ -1,14 +1,7 @@
-import { createContext, ReactNode, useState} from "react";
+import { createContext, ReactNode, useReducer, useState} from "react";
+import { CoffeesInTrolleyProps, Reducer } from "../../reducer/Coffes";
+import { ClearCoffeeTrolleyAction, deleteOneCoffeeAction, UpdateCoffeTrolleyAction } from "../../reducer/Coffes/actions";
 
-export interface CoffeesInTrolleyProps {
-    id: string,
-    type: []
-    name: string,
-    image: string,
-    price: number
-    description: string,
-    coffeeAmount: number
-}
 
 interface CoffesContextProviderProps {
     children: ReactNode,
@@ -26,9 +19,10 @@ interface CoffesContextType {
 export const CoffesContext = createContext({} as CoffesContextType)
 
 
-export function CoffesContextProvider({children}:CoffesContextProviderProps){
-    const [coffeesInTrolley, setCoffesInTrolley] = useState<CoffeesInTrolleyProps[]>([])
 
+export function CoffesContextProvider({children}:CoffesContextProviderProps){
+    const [coffeesInTrolley,dispatch] = useReducer(Reducer,[])
+    
     const priceAllCoffees = coffeesInTrolley.reduce((priceAllCoffees,currentCoffe)=>{
         return priceAllCoffees + (currentCoffe.price * currentCoffe.coffeeAmount)
     },0)
@@ -43,29 +37,14 @@ export function CoffesContextProvider({children}:CoffesContextProviderProps){
 
 
     function UpdateCoffeTrolley(newCoffee: CoffeesInTrolleyProps){
-        const coffeeSelected = coffeesInTrolley.find(coffe =>{
-            return newCoffee.id === coffe.id
-        })
-        if(coffeeSelected){
-            const coffeesInTroleyWithOneCoffeeChanged = coffeesInTrolley.map(coffee =>{
-                if(coffeeSelected.id === coffee.id){
-                    return newCoffee
-                }
-                return coffee
-            })
-            return setCoffesInTrolley(state => coffeesInTroleyWithOneCoffeeChanged)
-        }
-        setCoffesInTrolley([...coffeesInTrolley,newCoffee])        
+        dispatch(UpdateCoffeTrolleyAction(newCoffee))     
     }
     
     function deleteOneCoffee(coffeeId:string){
-        const coffeTolleyWithoutOneCoffee = coffeesInTrolley.filter(coffee => {
-            return coffeeId != coffee.id
-        })
-        setCoffesInTrolley(state => coffeTolleyWithoutOneCoffee)
+        dispatch(deleteOneCoffeeAction(coffeeId))   
     }
     function ClearCoffeeTrolley(){
-        setCoffesInTrolley(() => [])
+        dispatch(ClearCoffeeTrolleyAction())
     }
 
     return(
