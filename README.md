@@ -1,8 +1,10 @@
-# coffe-store
+## coffe-store
  
 ![coffe_shop_image00](https://user-images.githubusercontent.com/84108989/182043793-d9bb4e2e-35f9-40db-9cb7-018014e974aa.png)
-Coffe-shop
 
+
+### Aviso para utilizar este projeto você deve ter tambem a api
+que está em https://github.com/joao472762/ignite-coffe-api
 
 
 Este foi o seugundo desafio da nova trilha de react Js da Rocketseat
